@@ -9,14 +9,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import {  useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Copyright } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-interface LoginProps {}
 
-const Login: FC<LoginProps> = () => {
+import { Link } from "react-router-dom";
+
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -50,6 +49,7 @@ const Login: FC<LoginProps> = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment
+                    sx={{ cursor: "pointer" }}
                     position="end"
                     onClick={handleClickShowPassword}
                   >
@@ -86,13 +86,13 @@ const Login: FC<LoginProps> = () => {
                 </Grid>
               </Grid>
             </div>
-            <div className="flex items-center justify-center mt-8 mb-5">
+            {/* <div className="flex items-center justify-center mt-8 mb-5">
               <Typography>
                 Copyright
                 <Copyright />
                 Your Website 2023
               </Typography>
-            </div>
+            </div> */}
           </Box>
         </Box>
       </Container>

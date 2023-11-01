@@ -1,15 +1,15 @@
-import { FC } from "react";
+import { Typography } from "@mui/material";
 
-interface ErrorPageProps {}
-
-const ErrorPage: FC<ErrorPageProps> = () => {
+const ErrorPage = () => {
   return (
-    <div className=" bg-red-700 flex flex-col  justify-center items-center">
-      <h1>Oops!</h1>
-      <h5>Sorry, an unexpected error has occured</h5>
-      <h2>
-        <i>Not Found</i>
-      </h2>
+    <div className="flex  flex-col items-center justify-center">
+      <Typography variant="h1">Oops!</Typography>
+      <Typography variant="h5">
+        Sorry, an unexpected error has occured
+      </Typography>
+      <Typography variant="h6">
+        <i>Page Not Found</i>
+      </Typography>
     </div>
   );
 };
