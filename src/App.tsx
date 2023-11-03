@@ -4,8 +4,9 @@ import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./routes/RootLayout";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+
 import { CssBaseline } from "@mui/material";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -33,12 +34,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Register />,
+        element: <Signup />,
       },
     ],
   },
 ]);
+
+
+/*  */
+
 const App = () => {
+
   return (
     <div className="p-0 m-0">
       <React.StrictMode>

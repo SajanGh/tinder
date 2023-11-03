@@ -9,11 +9,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import { Link } from "react-router-dom";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,83 +25,120 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+      setLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    if (email) {
+      localStorage.setItem("email", email);
+      setLoggedIn(true);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    setEmail("")
+    setLoggedIn(false);
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center ">
       <Container maxWidth="xs">
         <Box>
-          <Typography variant="h5" component="h1">
-            Sign in
-          </Typography>
-          <Box>
-            <TextField
-              required
-              fullWidth
-              margin="normal"
-              autoFocus
-              autoComplete="email"
-              label="Email Address"
-              variant="outlined"
-            />
-
-            <TextField
-              required
-              fullWidth
-              margin="normal"
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              autoComplete="current-password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment
-                    sx={{ cursor: "pointer" }}
-                    position="end"
-                    onClick={handleClickShowPassword}
-                  >
-                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember Me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2, mb: 2 }}
-            >
-              Sign In
-            </Button>
+          {loggedIn ? (
+            <Button onClick={handleLogout}>Logout</Button>
+          ) : (
             <div>
-              <Grid container>
-                <Grid item xs={4}>
-                  <Link to="#">
-                    <Typography variant="body2">Forgot Password?</Typography>
-                  </Link>
-                </Grid>
-                <Grid item xs={8}>
-                  <Link to="">
-                    <Typography variant="body2">
-                      {"Don't have an account? Sign up"}
-                    </Typography>
-                  </Link>
-                </Grid>
-              </Grid>
-            </div>
-            {/* <div className="flex items-center justify-center mt-8 mb-5">
-              <Typography>
-                Copyright
-                <Copyright />
-                Your Website 2023
+              <Typography variant="h5" component="h1">
+                Sign in, Welcome {email}
               </Typography>
-            </div> */}
-          </Box>
+
+              <Box>
+                <TextField
+                  required
+                  fullWidth
+                  margin="normal"
+                  autoFocus
+                  autoComplete="email"
+                  label="Email Address"
+                  variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <TextField
+                  required
+                  fullWidth
+                  margin="normal"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        sx={{ cursor: "pointer" }}
+                        position="end"
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember Me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 2, mb: 2 }}
+                  onClick={handleLogin}
+                >
+                  Sign In
+                </Button>
+                <div>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <Link to="#">
+                        <Typography variant="body2">
+                          Forgot Password?
+                        </Typography>
+                      </Link>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Link to="">
+                        <Typography variant="body2">
+                          {"Don't have an account? Sign up"}
+                        </Typography>
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Box>
+            </div>
+          )}
         </Box>
       </Container>
     </div>
   );
 };
+
+
 
 export default Login;
