@@ -37,7 +37,7 @@ const Login = () => {
         password: password,
       });
 
-      const token = response.data.accessToken;
+      const token = response.data.data.accessToken;
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", JSON.stringify(email));

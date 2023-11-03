@@ -2,17 +2,11 @@ import axios from "axios";
 
 const baseURL = "http://127.0.0.1:3000/v1";
 
+const token = localStorage.getItem("token");
 export const authFetch = axios.create({
   baseURL,
-});
-
-authFetch.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+  headers: {
+    Accept: "application/json",
+    Authorization: token ? `Bearer ${token}` : "", // Include the token in the header if it exists
   },
-  (err) => Promise.reject(err)
-);
+});
