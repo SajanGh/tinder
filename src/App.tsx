@@ -40,11 +40,9 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 /*  */
 
 const App = () => {
-
   return (
     <div className="p-0 m-0">
       <React.StrictMode>

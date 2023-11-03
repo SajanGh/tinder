@@ -9,15 +9,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import { Link } from "react-router-dom";
 
+import { authFetch } from "../api/axios";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,24 +30,26 @@ const Login = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    if (storedEmail) {
-      setEmail(storedEmail);
-      setLoggedIn(true);
-    }
-  }, []);
+  const handleLogin = async () => {
+    try {
+      const response = await authFetch.post("/login/basic", {
+        email: email,
+        password: password,
+      });
 
-  const handleLogin = () => {
-    if (email) {
-      localStorage.setItem("email", email);
-      setLoggedIn(true);
+      const token = response.data.accessToken;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", JSON.stringify(email));
+    } catch (err) {
+      console.log("Login error:", err);
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("email");
-    setEmail("")
+    localStorage.removeItem("token");
+    setEmail("");
     setLoggedIn(false);
   };
 
@@ -138,7 +140,5 @@ const Login = () => {
     </div>
   );
 };
-
-
 
 export default Login;
