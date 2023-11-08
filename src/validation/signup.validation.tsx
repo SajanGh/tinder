@@ -8,7 +8,8 @@ export type FormData = {
   password: string;
   confirmPassword: string;
 };
-export const schema: ZodType<FormData> = z
+
+export const registerSchema: ZodType<FormData> = z
   .object({
     firstName: z
       .string({ required_error: "Firstname is required" })

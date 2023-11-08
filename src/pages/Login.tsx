@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 
 import { authFetch } from "../api/axios";
 
+import { useNavigate } from "react-router-dom";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const Login = () => {
@@ -30,6 +32,8 @@ const Login = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const response = await authFetch.post("/login/basic", {
@@ -37,10 +41,12 @@ const Login = () => {
         password: password,
       });
 
-      const token = response.data.data.accessToken;
+      const token = await response.data.data.accessToken;
 
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", JSON.stringify(token));
+
       localStorage.setItem("email", JSON.stringify(email));
+      navigate("/profile");
     } catch (err) {
       console.log("Login error:", err);
     }

@@ -12,22 +12,59 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState } from "react";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { schema } from "../validation/signup.validation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { registerSchema } from "../validation/signup.validation";
 import { FormData } from "../validation/signup.validation";
+import { authFetch } from "../api/axios";
 
-const Signup = () => {
+import { useNavigate } from "react-router-dom";
+import { TypeOf } from "zod";
+import { GenericResponse } from "../types/types.d";
+import { toast } from "sonner";
+
+type FormInputProps = { label: string; name: string; type?: string };
+
+export type RegisterInput = TypeOf<typeof registerSchema>;
+const Signup: React.FC<FormInputProps> = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(registerSchema),
   });
-  const submitData = (data: FormData) => {
+
+  const navigate = useNavigate();
+
+  const registerUser = async (data: RegisterInput) => {
     console.log("Its working", data);
+    try {
+      const response = await authFetch.post<GenericResponse>(
+        "/signup/basic",
+        data
+      );
+      console.log(response);
+
+      toast.success("Signup successfull", {
+        style: {
+          background: "green",
+        },
+      });
+      navigate("/profile");
+    } catch (err) {
+      toast.error("Something went wrong", {
+        style: {
+          background: "red",
+        },
+      });
+      console.log("Signup error", err);
+    }
   };
 
+  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
+    console.log("I was called");
+    registerUser(values);
+  };
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -37,7 +74,7 @@ const Signup = () => {
     <div className="min-h-screen flex justify-center items-center">
       <Container maxWidth="xs">
         <Box>
-          <form onSubmit={handleSubmit(submitData)}>
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
             <Typography variant="h4" component="h1">
               Signup
             </Typography>

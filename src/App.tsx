@@ -7,8 +7,35 @@ import Login from "./pages/Login";
 
 import { CssBaseline } from "@mui/material";
 import Signup from "./pages/Signup";
+import EmailVerification from "./pages/EmailVerification";
+import Recommendation from "./pages/Recommendation";
+import { Toaster } from "sonner";
 
 const router = createBrowserRouter([
+  {
+    path: "*",
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+      {
+        path: "verifyEmail",
+        element: <EmailVerification />,
+        children: [
+          {
+            path: ":verificationCode",
+            element: <EmailVerification />,
+          },
+        ],
+      },
+    ],
+  },
+
   {
     path: "/",
     element: <RootLayout />,
@@ -16,25 +43,16 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/app",
-
         children: [
+          {
+            path: "",
+            element: <Recommendation />,
+          },
           {
             path: "profile",
             element: <Profile />,
           },
         ],
-      },
-    ],
-  },
-  {
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
       },
     ],
   },
@@ -47,6 +65,8 @@ const App = () => {
     <div className="p-0 m-0">
       <React.StrictMode>
         <CssBaseline />
+        <Toaster expand visibleToasts={9} />
+
         <RouterProvider router={router} />
       </React.StrictMode>
     </div>
