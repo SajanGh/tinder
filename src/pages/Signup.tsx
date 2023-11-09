@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerSchema } from "../validation/signup.validation";
 import { FormData } from "../validation/signup.validation";
-import { authFetch } from "../api/axios";
+import { authApi } from "../api/authApi";
 
 import { useNavigate } from "react-router-dom";
 import { TypeOf } from "zod";
@@ -39,7 +39,7 @@ const Signup: React.FC<FormInputProps> = () => {
   const registerUser = async (data: RegisterInput) => {
     console.log("Its working", data);
     try {
-      const response = await authFetch.post<GenericResponse>(
+      const response = await authApi.post<GenericResponse>(
         "/signup/basic",
         data
       );

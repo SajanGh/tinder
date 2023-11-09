@@ -15,7 +15,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import { Link } from "react-router-dom";
 
-import { authFetch } from "../api/axios";
+import { authApi } from "../api/authApi";
 
 import { useNavigate } from "react-router-dom";
 
@@ -36,7 +36,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await authFetch.post("/login/basic", {
+      const response = await authApi.post("/login/basic", {
         email: email,
         password: password,
       });
