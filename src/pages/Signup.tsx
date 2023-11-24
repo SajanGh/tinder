@@ -57,12 +57,10 @@ const Signup: React.FC<FormInputProps> = () => {
           background: "red",
         },
       });
-      console.log("Signup error", err);
     }
   };
 
   const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
-    console.log("I was called");
     registerUser(values);
   };
   const [showPassword, setShowPassword] = useState(false);

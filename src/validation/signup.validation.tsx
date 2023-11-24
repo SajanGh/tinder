@@ -1,13 +1,13 @@
 import { ZodType, z } from "zod";
 
-export type FormData = {
+export interface FormData {
   username: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
-};
+}
 
 export const registerSchema: ZodType<FormData> = z
   .object({
@@ -36,8 +36,7 @@ export const registerSchema: ZodType<FormData> = z
       .string()
       .min(8, { message: "Password must be of 8 characters" })
       .max(20, { message: "Password must be upto 20 characters" })
-      .trim()
-      .toLowerCase(),
+      .trim(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Password do not match",
