@@ -14,7 +14,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerSchema } from "../validation/signup.validation";
-import { FormData } from "../validation/signup.validation";
+
+import { FormData } from "@/validation/signup.validation";
 import { authApi } from "../api/authApi";
 
 import { useNavigate } from "react-router-dom";

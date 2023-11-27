@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Rightbar from "../components/Rightbar";
 
+
 interface RootLayoutProps {}
 
 const RootLayout: FC<RootLayoutProps> = () => {
