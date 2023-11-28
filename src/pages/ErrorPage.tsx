@@ -1,14 +1,24 @@
 import { Typography } from "@mui/material";
 
-const ErrorPage = () => {
+import { useRouteError } from "react-router-dom";
+
+interface RouteError {
+  statusText?: string;
+  message?: string;
+}
+
+const ErrorPage: React.FC = () => {
+  const error = useRouteError() as RouteError;
+  console.log(error);
   return (
     <div className="flex  flex-col items-center justify-center">
       <Typography variant="h1">Oops!</Typography>
       <Typography variant="h5">
         Sorry, an unexpected error has occured
       </Typography>
-      <Typography variant="h6">
-        <i>Page Not Found</i>
+
+      <Typography>
+        <i>{error.statusText || error.message}</i>
       </Typography>
     </div>
   );

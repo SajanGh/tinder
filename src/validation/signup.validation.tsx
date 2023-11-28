@@ -1,6 +1,6 @@
 import { ZodType, z } from "zod";
 
-export interface FormData {
+export type FormData ={
   username: string;
   firstName: string;
   lastName: string;

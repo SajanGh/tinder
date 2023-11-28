@@ -14,8 +14,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerSchema } from "../validation/signup.validation";
+import { FormData } from "../validation/signup.validation";
 
-import { FormData } from "@/validation/signup.validation";
 import { authApi } from "../api/authApi";
 
 import { useNavigate } from "react-router-dom";
@@ -23,10 +23,8 @@ import { TypeOf } from "zod";
 import { GenericResponse } from "../types/types.d";
 import { toast } from "sonner";
 
-type FormInputProps = { label: string; name: string; type?: string };
-
 export type RegisterInput = TypeOf<typeof registerSchema>;
-const Signup: React.FC<FormInputProps> = () => {
+const Signup: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -74,6 +72,7 @@ const Signup: React.FC<FormInputProps> = () => {
       <Container maxWidth="xs">
         <Box>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
+            {/* <form onSubmit={onSignUp}> */}
             <Typography variant="h4" component="h1">
               Signup
             </Typography>

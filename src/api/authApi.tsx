@@ -4,6 +4,7 @@ const baseURL = "http://127.0.0.1:3000/v1";
 
 export const authApi = axios.create({
   baseURL,
+  withCredentials: true,
   headers: {
     Accept: "application/json",
   },
