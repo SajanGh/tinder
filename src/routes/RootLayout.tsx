@@ -9,11 +9,15 @@ interface RootLayoutProps {}
 
 const RootLayout: FC<RootLayoutProps> = () => {
   return (
-    <div className="container flex">
-      <Sidebar />
-      <Rightbar />
-      <Suspense fallback={<LinearProgress/>}>
-        <Outlet />
+    <div>
+      <div className="container flex">
+        <Sidebar />
+        <Rightbar />
+      </div>
+      <Suspense fallback={<LinearProgress />}>
+        <div>
+          <Outlet />
+        </div>
       </Suspense>
     </div>
   );
